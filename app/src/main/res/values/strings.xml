@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Moovie-Cow</string>
+    <string name="action_settings">Settings</string>
+    <string name="MOVIEDB_BASE_URL">https://api.themoviedb.org/3/movie/</string>
+    <string name="MOVIEDB_SORT_POPULAR">popular</string>
+    <string name="MOVIEDB_SORT_TOPRATED">top_rated</string>
+    <string name="MOVIEDB_BASE_IMGURL">https://image.tmdb.org/t/p/w500</string>
+    <string name="PARAM_QUERY">api_key</string>
+    <string name="textview">TextView</string>
+
+
+    <string name="details_movieOverviewRating">Movie Rating:</string>
+    <string name="details_movieRatingJokese">5/7 almost as good as the dark night</string>
+    <string name="details_moviesReleaseDate">Release Date:</string>
+    <string name="details_movieOverviewTitle">Movie Description:</string>
+</resources>
