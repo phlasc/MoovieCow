@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         // found out the hard way that you can't reference buttons or initialize them
         //  until setcontentview is done
-        final Button button = findViewById(R.id.buttonSwapper);
         //so here that is lol
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -62,35 +61,6 @@ public class MainActivity extends AppCompatActivity {
         // to get those wheels turning note to self: where the fudge is my errorlogging so bad
         // ain't nobody got time for that
         MakeMovieDatabaseBackground(sortCode);
-
-
-        button.setText("popular");
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                switch (sortCode) {
-                    case 1:
-                        button.setText("Top Rated");
-                        setNewData(2);
-                        // I don't know if this is implemented correctly but
-                        // it works and setNewData takes the paramater arg and
-                        // puts new data into view while notifying the adapter
-                        // that data set has been modified so it doesn't crash while
-                        // switching views and scrolling at the same time
-
-                        break;
-                    case 2:
-                        button.setText("Popular");
-                        setNewData(1);
-
-
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
     }
 
 
@@ -178,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
+        menu.findItem(R.id.action_toggleSorting).setTitle(this.getString(R.string.mostpopular));
         return true;
     }
 
@@ -191,6 +161,32 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+
+        if (id == R.id.action_toggleSorting) {
+
+            switch (sortCode) {
+                case 1:
+
+                    item.setTitle(this.getString(R.string.toprated));
+                    setNewData(2);
+                    // I don't know if this is implemented correctly but
+                    // it works and setNewData takes the paramater arg and
+                    // puts new data into view while notifying the adapter
+                    // that data set has been modified so it doesn't crash while
+                    // switching views and scrolling at the same time
+
+                    break;
+                case 2:
+                    item.setTitle(this.getString(R.string.mostpopular));
+                    setNewData(1);
+
+
+                    break;
+                default:
+                    break;
+            }
             return true;
         }
 

@@ -21,12 +21,18 @@ public class details_movie extends AppCompatActivity {
     private String plot;
 
     @Override
+    public boolean onSupportNavigateUp() {
+        return super.onSupportNavigateUp();
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.details_movie);
         Log.d(TAG, "onCreate: ");
         getIncomingIntent();
         setDetails();
+
         }
 
 
@@ -75,3 +81,4 @@ public class details_movie extends AppCompatActivity {
 
     }
 }
+

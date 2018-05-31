@@ -7,10 +7,13 @@
     <string name="MOVIEDB_BASE_IMGURL">https://image.tmdb.org/t/p/w500</string>
     <string name="PARAM_QUERY">api_key</string>
     <string name="textview">TextView</string>
+    <string name="toprated">Top Rated</string>
+    <string name="mostpopular">Popular</string>
     <string name="details_movieReviewTitle">Reviews</string>
     <string name="details_movieTrailerTitle">Trailers</string>
     <string name="details_movieRatingTitle">Movie Rating:</string>
     <string name="details_movieRatingJokese">5/7 almost as good as the dark night</string>
     <string name="details_moviesReleaseDate">Release Date:</string>
     <string name="details_movieOverviewTitle">Movie Description:</string>
+    <string name="Favorites">Favorites</string>
 </resources>
