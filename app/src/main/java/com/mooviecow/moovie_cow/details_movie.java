@@ -27,7 +27,8 @@ public class details_movie extends AppCompatActivity {
         Log.d(TAG, "onCreate: ");
         getIncomingIntent();
         setDetails();
-    }
+        }
+
 
     private void getIncomingIntent() {
         Log.d(TAG, "getIncomingIntent: checking for the intent yo");
