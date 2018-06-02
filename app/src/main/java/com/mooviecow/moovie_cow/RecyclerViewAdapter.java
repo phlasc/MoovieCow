@@ -30,10 +30,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ArrayList<String> mRelease;
     private ArrayList<Double> mRating;
     private ArrayList<String> mPlot;
+    private ArrayList<Integer> mMovieId;
+
 
     private Context mContext;
 
-    public RecyclerViewAdapter(ArrayList<String> mImageLinks, ArrayList<String> mMovieTitle, Context mContext, ArrayList<String> mRelease, ArrayList<Double> mRating, ArrayList<String> mPlot) {
+    public RecyclerViewAdapter(ArrayList<String> mImageLinks, ArrayList<String> mMovieTitle, Context mContext, ArrayList<String> mRelease, ArrayList<Double> mRating, ArrayList<String> mPlot, ArrayList<Integer> mMovieId) {
 
         this.mImageLinks = mImageLinks;
         this.mMovieTitle = mMovieTitle;
@@ -41,9 +43,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.mRating = mRating;
         this.mRelease = mRelease;
         this.mPlot = mPlot;
+        this.mMovieId = mMovieId;
+
 
         //constructor for variables
     }
+
 
     @NonNull
     @Override
@@ -69,6 +74,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             Intent intent = new Intent(mContext, details_movie.class);
             Bundle bDouble = new Bundle();
+
             @Override
             public void onClick(View v) {
                 // putting intents variables to pass to details on click
@@ -77,8 +83,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 intent.putExtra("poster_path", mImageLinks.get(position));
                 intent.putExtra("title", mMovieTitle.get(position));
 
-                bDouble.putDouble("rating", mRating.get(position));
 
+                bDouble.putInt("movieId", mMovieId.get(position));
+                bDouble.putDouble("rating", mRating.get(position));
                 intent.putExtras(bDouble);
                 intent.putExtra("overview", mPlot.get(position));
                 intent.putExtra("release", mRelease.get(position));

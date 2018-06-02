@@ -19,6 +19,7 @@ public class details_movie extends AppCompatActivity {
     private Double rating;
     private String release;
     private String plot;
+    private Integer movieID;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -41,18 +42,20 @@ public class details_movie extends AppCompatActivity {
         if (getIntent().hasExtra("poster_path") && getIntent().hasExtra("title")) {
             Log.d(TAG, "getIncomingIntent: intent found");
 
-            poster_path = getIntent().getStringExtra("poster_path");
-            title = getIntent().getStringExtra("title");
-
-
-
-
             Bundle bDouble = getIntent().getExtras();
             assert bDouble != null;
+            poster_path = getIntent().getStringExtra("poster_path");
+            title = getIntent().getStringExtra("title");
+            movieID = bDouble.getInt("movieId");
+
+
+
+
             //lint was saying getDouble could throw a null pointer exeption without assert
             rating = bDouble.getDouble("rating");
             release = getIntent().getStringExtra("release");
             plot = getIntent().getStringExtra("overview");
+
 
         }
     }
@@ -71,7 +74,7 @@ public class details_movie extends AppCompatActivity {
 
 
 
-        titleTextView.setText(title);
+        titleTextView.setText(title + Integer.toString(movieID));
         plotView.setText(plot);
         releaseView.setText(release);
         ratingView.setText(Double.toString(rating));
@@ -81,4 +84,6 @@ public class details_movie extends AppCompatActivity {
 
     }
 }
+
+
 

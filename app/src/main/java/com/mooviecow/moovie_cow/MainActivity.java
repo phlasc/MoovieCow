@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private final ArrayList<String> mRelease = new ArrayList<>();
     private final ArrayList<Double> mRating = new ArrayList<>();
     private final ArrayList<String> mPlot = new ArrayList<>();
+    private final ArrayList<Integer> mMovieId = new ArrayList<>();
     private int sortCode = 1;
 
 
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void MakeMovieDatabaseBackground(int sortCode) {
+    public void MakeMovieDatabaseBackground(int sortCode) {
         String MOVIEDB_BASE_URL = this.getString(R.string.MOVIEDB_BASE_URL);
         String MOVIEDB_API_KEY = this.getString(R.string.MOVIEDB_API_KEY);
         String PARAM_QUERY = this.getString(R.string.PARAM_QUERY);
@@ -105,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
                     mRelease.add(movie.getResults().get(i).getRelease_date());
                     mRating.add(movie.getResults().get(i).getVote_average());
                     mPlot.add(movie.getResults().get(i).getOverview());
+                    mMovieId.add(movie.getResults().get(i).getId());
+
 
                 }
             } else {
@@ -120,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
 
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(mImageLinks, mMovieTitle, this, mRelease, mRating, mPlot);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(mImageLinks, mMovieTitle, this, mRelease, mRating, mPlot, mMovieId);
         recyclerView.setAdapter(adapter);
 
         // make this bad boy into a grid layout because ain't nobody got time for Listview
