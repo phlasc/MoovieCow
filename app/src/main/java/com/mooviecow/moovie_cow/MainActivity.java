@@ -1,37 +1,22 @@
 package com.mooviecow.moovie_cow;
 
-import android.content.Context;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Layout;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.lang.reflect.Array;
 import java.net.URL;
-
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.mooviecow.moovie_cow.model.MovieList;
 import com.mooviecow.moovie_cow.utils.NetworkUtils;
-
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -67,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void MakeMovieDatabaseBackground(int sortCode) {
         String MOVIEDB_BASE_URL = this.getString(R.string.MOVIEDB_BASE_URL);
+        // https://api.themoviedb.org/3/movie/260513/videos?api_key=efcf389e0551e31e5728adc04560b68b&language=en-US
         String MOVIEDB_API_KEY = this.getString(R.string.MOVIEDB_API_KEY);
         String PARAM_QUERY = this.getString(R.string.PARAM_QUERY);
         URL url = NetworkUtils.buildUrl(sortCode, MOVIEDB_BASE_URL, MOVIEDB_API_KEY, PARAM_QUERY);

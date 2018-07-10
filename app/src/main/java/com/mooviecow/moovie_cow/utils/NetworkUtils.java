@@ -50,6 +50,26 @@ public class NetworkUtils {
         return url;
     }
 
+    public static URL getVideos(String movieID, String DBURL, String APIKEY, String PARAM) {
+        //this ain't gonna be pretty but it should work
+        Uri builtUri = Uri.parse(DBURL)
+                .buildUpon()
+                .appendEncodedPath(movieID)
+                .appendEncodedPath("videos")
+                .appendQueryParameter(PARAM, APIKEY)
+                .build();
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+
+
+        }
+
+        //returning formatted url
+        return url;
+    }
 
     //return full response from http request
     public static String getResponseFromHttpUrl(URL url) throws IOException {

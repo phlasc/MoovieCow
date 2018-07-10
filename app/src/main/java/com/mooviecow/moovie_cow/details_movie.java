@@ -5,11 +5,20 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.os.AsyncTask;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.mooviecow.moovie_cow.model.MovieList;
 import com.squareup.picasso.Picasso;
-
+import com.mooviecow.moovie_cow.utils.NetworkUtils;
+import com.mooviecow.moovie_cow.R;
 import org.w3c.dom.Text;
+
+import java.io.IOException;
+import java.net.URL;
 
 public class details_movie extends AppCompatActivity {
 
@@ -34,7 +43,7 @@ public class details_movie extends AppCompatActivity {
         getIncomingIntent();
         setDetails();
 
-        }
+    }
 
 
     private void getIncomingIntent() {
@@ -49,8 +58,6 @@ public class details_movie extends AppCompatActivity {
             movieID = bDouble.getInt("movieId");
 
 
-
-
             //lint was saying getDouble could throw a null pointer exeption without assert
             rating = bDouble.getDouble("rating");
             release = getIntent().getStringExtra("release");
@@ -59,6 +66,7 @@ public class details_movie extends AppCompatActivity {
 
         }
     }
+
 
     private void setDetails() {
         Log.d(TAG, "setDetails: set the details in details_movie activity");
@@ -73,8 +81,12 @@ public class details_movie extends AppCompatActivity {
         TextView ratingView = findViewById(R.id.release_textView2);
 
 
+        ListView reviewList = findViewById(R.id.reviewList);
 
-        titleTextView.setText(title + Integer.toString(movieID));
+        // why can't strings be accessed out fo the main classes context >.>
+        String dbUrlBase = getResources(R.string.MOVIEDB_BASE_URL);
+        URL url = NetworkUtils.getVideos("260513",);
+        new details_movie.MovieDatabaseBackground().execute(url);
         plotView.setText(plot);
         releaseView.setText(release);
         ratingView.setText(Double.toString(rating));
@@ -83,7 +95,49 @@ public class details_movie extends AppCompatActivity {
 
 
     }
+
+    public class MovieDatabaseBackground extends AsyncTask<URL, Void, String> {
+        // this whole thing gives me bad feelings but it works
+        // need to check for internet connection here at later time
+        @Override
+        protected String doInBackground(URL... params) {
+            URL searchUrl = params[0];
+            String results = null;
+            try {
+                results = NetworkUtils.getResponseFromHttpUrl(searchUrl);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return results;
+        }
+        @Override
+        protected void onPostExecute(String results) {
+            if (results != null && !results.equals("")) {
+                Gson gson = new Gson();
+                // g
+                MovieList movie = gson.fromJson(results, MovieList.class);
+                // create movie object
+                for (int i = 0; i < movie.getResults().size(); i++) {
+
+                    //cycle through gson object and add the values to the listarray object
+                    mMovieTitle.add(movie.getResults().get(i).getTitle());
+                    mImageLinks.add(movie.getResults().get(i).getPoster_path());
+                    mRelease.add(movie.getResults().get(i).getRelease_date());
+                    mRating.add(movie.getResults().get(i).getVote_average());
+                    mPlot.add(movie.getResults().get(i).getOverview());
+                    mMovieId.add(movie.getResults().get(i).getId());
+
+
+                }
+            } else {
+                Toast.makeText(MainActivity.this, "No Network Connection", Toast.LENGTH_LONG).show();
+            }
+            startRecyclerView().notifyDataSetChanged();
+
+        }
+    }
 }
+
 
 
 
